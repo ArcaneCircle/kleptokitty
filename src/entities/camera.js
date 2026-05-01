@@ -8,6 +8,8 @@ export default class Camera extends Sprite {
     this.name = 'camera';
     this.rotationAngle = 0; // Track rotation angle
     this.rotationSpeed = 0.01; // Rotation speed (radians per frame)
+    this.hitWall = null;
+    this.finalEndPoint = pos.copy(); // initialized to pos; updated each frame in update()
   }
   
   update() {
