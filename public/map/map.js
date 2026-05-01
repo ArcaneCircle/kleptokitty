@@ -386,6 +386,7 @@ addEventListener('keyup', (e) => {
     document.getElementById('settings-modal').showModal();
   }
   if (e.code === 'KeyI' && e.shiftKey) {
+    updateImportTextarea();
     document.getElementById('import-modal').showModal();
   }
 
@@ -507,6 +508,13 @@ const menuButton = document.getElementById('menu-button');
 const menu = document.getElementById('menu');
 function closeMenu() { menuButton.checked = false; }
 //
+// Populate the import modal textarea with the current map's serialized data
+function updateImportTextarea() {
+  const mapCopy = [...mapData];
+  const raw = mapCopy.reverse().join('-');
+  document.getElementById('arrayData').value = JSON.stringify(raw, null, 2) + ',';
+}
+
 // modals
 const isOpenClass = "modal-is-open";
 const openingClass = "modal-is-opening";
@@ -526,6 +534,9 @@ document.querySelectorAll('.modal').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const modal = document.getElementById(event.currentTarget.dataset.target);
     if (!modal) return;
+    if (modal.id === 'import-modal' && !modal.open) {
+      updateImportTextarea();
+    }
     modal && (modal.open ? closeModal(modal) : openModal(modal));
   });
 
