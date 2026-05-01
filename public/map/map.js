@@ -534,7 +534,7 @@ document.querySelectorAll('.modal').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const modal = document.getElementById(event.currentTarget.dataset.target);
     if (!modal) return;
-    if (modal.id === 'import-modal' && !modal.open) {
+    if (modal.id === 'import-modal') {
       updateImportTextarea();
     }
     modal && (modal.open ? closeModal(modal) : openModal(modal));
