@@ -1,5 +1,4 @@
 import D from './data';
-import raw from './data/levels';
 import { makeLevel, niceText, injectCSS, aboutUI } from './helpers';
 import Msg from './entities/msg';
 import { musicInit, musicUpdate } from './muzak';
@@ -8,7 +7,7 @@ import LevelComplete from './entities/levelComplete';
 
 document.title = D.title;
 tileFixBleedScale = .5;
-const levels = raw.split('+');
+const levels = LEVELS_DATA.split('+');
 
 injectCSS();
 
