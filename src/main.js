@@ -55,6 +55,20 @@ const toggleMute = (val = !mute) => {
   return mute;
 }
 
+/**
+ * FNV-1a 32-bit hash – returns an 8‑character hex string.
+ * Works entirely in plain JavaScript, no dependencies.
+ */
+function fnv1a32(str) {
+  let hash = 0x811c9dc5; // FNV offset basis
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    // multiply by FNV prime (mod 2^32)
+    hash = (hash * 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, '0'); // zero‑padded hex
+}
+
 const nextLevel = () => {
   level += 1;
   let complete = level >= levels.length;
@@ -63,6 +77,11 @@ const nextLevel = () => {
   engineObjects.forEach(o => o.destroy());
   let t = time - startTime;
     startTime = time;
+
+  const lootPer = ~~(loot/levelLoot*100)
+  const info = `${webxdc.selfName} won level #${fnv1a32(levels[level])} ⏳${~~t}s 💎${lootPer}% 🐾${moves}`;
+  webxdc.sendUpdate({ payload: {}, info, href: 'index.html?i=' + levels[level]});
+
   new LevelComplete({ pos, updateScore, complete, score, level, startGame, sfx, moves, loot, levelLoot, t, deaths });
 }
 
