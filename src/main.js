@@ -101,7 +101,7 @@ const startGame = () => {
       setTimeout(() => new Msg('Grab loot'), 4000);
       setTimeout(() => new Msg('Escape'), 6000);
     } else if (importLevel) {
-      new Msg(`Testing`, 3);
+      new Msg(`Challenge!`, 3);
     } else {
       new Msg(`Level ${level}`, 3);
     }
