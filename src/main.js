@@ -55,7 +55,23 @@ const toggleMute = (val = !mute) => {
   return mute;
 }
 
+/**
+ * FNV-1a 32-bit hash – returns an 8‑character hex string.
+ * Copied from public/map/map.js to generate a stable level ID.
+ */
+function fnv1a32(str) {
+  let hash = 0x811c9dc5; // FNV offset basis
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    // multiply by FNV prime (mod 2^32)
+    hash = (hash * 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, '0'); // zero‑padded hex
+}
+
 const nextLevel = () => {
+  const info = `${webxdc.selfName} won level #${fnv1a32(levels[level])}`;
+  webxdc.sendUpdate({ payload: {}, info });
   level += 1;
   let complete = level >= levels.length;
 
