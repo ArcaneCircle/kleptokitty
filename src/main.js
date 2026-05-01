@@ -1,7 +1,6 @@
-import { version } from '../package.json';
 import D from './data';
 import raw from './data/levels';
-import { makeLevel, favIcon, niceText, injectCSS, aboutUI } from './helpers';
+import { makeLevel, niceText, injectCSS, aboutUI } from './helpers';
 import Msg from './entities/msg';
 import { musicInit, musicUpdate } from './muzak';
 import Button from './entities/button';
@@ -33,14 +32,8 @@ if (importLevel) {
   }
 }
 
-if (typeof BUILD === 'undefined') {
-  setShowWatermark(true);
-  console.log(D.title + ' v: ' + version);
-} else {
-  console.log(`${COMMIT}`);
-  console.log(`Built: ${BUILD}`);
-  setShowWatermark(false);
-}
+// comment this line to show debugging stats
+setShowWatermark(false);
 
 let player, clicked,
     score = 0,
@@ -104,7 +97,6 @@ function gameInit() {
   D.OC = overlayCanvas;
 
   document.body.style.backgroundColor = '#333';
-  favIcon();
   
   const gameSize = vec2(D.width, D.height);
   setCanvasFixedSize(gameSize);

@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KleptoKitty MapEditor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+    <link rel="stylesheet" href="map/pico.min.css">
     <link href="map/map.css" rel="stylesheet">
     <style>
     </style>
+    <script src="webxdc.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
-        <h1>KleptoKitty MapEditor</h1>
+        <h1>MapEditor</h1>
             <nav class="nav-container">
                 <details role="list">
                     <summary>Levels</summary>
@@ -170,7 +166,7 @@
                 <h3>Level data:</h3>
                 <textarea id="arrayData" placeholder="Paste your map array here for import, or exported data will appear here..."></textarea>
                 <div class="control-buttons">
-                  <button onclick="exportMap()">Export</button>
+                  <button onclick="exportMap(1)">Share in Chat</button>
                   <button onclick="importMap()">Import</button>
                 </div>
             </div>
@@ -183,7 +179,7 @@
 
 
 <script src="map/map.js"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="map/lucide.min.js"></script>
 <script> lucide.createIcons(); </script>
 
     </body>

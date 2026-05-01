@@ -1,5 +1,8 @@
 # KleptoKitty
 
+Webxdc port of [KleptoKitty](https://github.com/eoinmcg/kleptokitty),
+original README follows:
+
 By [@eoinmcg](https://twitter.com/eoinmcg)
   
 Entry for [JS13kGames 2025 jam](https://js13kgames.com/2025/games/kleptokitty)

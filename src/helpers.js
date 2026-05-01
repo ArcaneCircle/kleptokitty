@@ -60,23 +60,6 @@ export function makeLevel(data, opts) {
   return player;
 }
 
-
-export function favIcon() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 8;
-  canvas.height = 8;
-  const ctx = canvas.getContext('2d');
-  const img = new Image();
-  img.onload = () => {
-    ctx.drawImage(img, 0, 0, 8, 8, 0, 0, 8, 8);
-    const link = document.createElement('link');
-    link.rel = 'icon';
-    link.href = canvas.toDataURL();
-    document.head.appendChild(link);
-  };
-  img.src = 't.gif';
-}
-
 export function niceText( text, x, y, sizeFactor = 1,
   fillColor = '#fff', outlineColor = "rgba(0,0,0,.5)") {
 
@@ -194,7 +177,7 @@ export function aboutUI(toggleMute, mute) {
   const button1 = new UIButton(vec2(-135,100), vec2(200,25), 'Map Editor');
   uiMenu.addChild(button1);
   button1.onPress = ()=> {
-    window.open('mapeditor.html', '_blank');
+    window.location.replace('mapeditor.html');
     sound_ui.play();
   }
 
