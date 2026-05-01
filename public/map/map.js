@@ -386,6 +386,7 @@ addEventListener('keyup', (e) => {
     document.getElementById('settings-modal').showModal();
   }
   if (e.code === 'KeyI' && e.shiftKey) {
+    updateImportTextarea();
     document.getElementById('import-modal').showModal();
   }
 
@@ -515,6 +516,9 @@ const scrollbarWidthCssVar = "--pico-scrollbar-width";
 const animationDuration = 400; // ms
 let visibleModal = null;
 
+function updateImportTextarea() {
+  document.getElementById('arrayData').value = [...mapData].reverse().join('-');
+}
 
 document.querySelectorAll('dialog .close').forEach((btn) => {
   btn.addEventListener('click', (e) => {
@@ -526,6 +530,7 @@ document.querySelectorAll('.modal').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const modal = document.getElementById(event.currentTarget.dataset.target);
     if (!modal) return;
+    if (modal.id === 'import-modal') updateImportTextarea();
     modal && (modal.open ? closeModal(modal) : openModal(modal));
   });
 
