@@ -70,6 +70,7 @@ function fnv1a32(str) {
 }
 
 const nextLevel = () => {
+  const levelWon = levels[level];
   level += 1;
   let complete = level >= levels.length;
 
@@ -79,8 +80,8 @@ const nextLevel = () => {
     startTime = time;
 
   const lootPer = ~~(loot/levelLoot*100)
-  const info = `${webxdc.selfName} won level #${fnv1a32(levels[level])} ⏳${~~t}s 💎${lootPer}% 🐾${moves}`;
-  webxdc.sendUpdate({ payload: {}, info, href: 'index.html?i=' + levels[level]});
+  const info = `${webxdc.selfName} won level #${fnv1a32(levelWon)} ⏳${~~t}s 💎${lootPer}% 🐾${moves}`;
+  webxdc.sendUpdate({ payload: {}, info, href: 'index.html?i=' + levelWon});
 
   new LevelComplete({ pos, updateScore, complete, score, level, startGame, sfx, moves, loot, levelLoot, t, deaths });
 }
