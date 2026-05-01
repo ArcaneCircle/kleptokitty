@@ -177,10 +177,9 @@ function exportMap(share) {
     const info = `${webxdc.selfName} shared a level #${fnv1a32(raw)}`;
     webxdc.sendUpdate({payload: {}, info, href: 'index.html?i=' + raw});
   }
-  const link = window.location.href.replace(window.location.pathname.split('/').pop(), '') + '?i=' + raw;
-  navigator.clipboard.writeText(link);
-  window.location.replace(link);
-  showStatus('Map exported to clipboard!', 'success');
+  navigator.clipboard.writeText(raw);
+  window.location.replace('./index.html?i=' + raw);
+  //showStatus('Map exported to clipboard!', 'success');
 }
 
 // Import map from array format
