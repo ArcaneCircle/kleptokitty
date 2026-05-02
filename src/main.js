@@ -76,8 +76,7 @@ const nextLevel = () => {
 
   const { moves, loot, pos, levelLoot } = player;
   engineObjects.forEach(o => o.destroy());
-  let t = time - startTime;
-    startTime = time;
+  let t = player.exitTime - startTime;
 
   if (importLevel) {
     window.location.replace('./mapeditor.html?i=' + levelWon);

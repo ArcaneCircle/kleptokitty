@@ -13,6 +13,7 @@ export default class Player extends Sprite {
     this.moves = 0;
     this.loot = 0;
     this.exited = false;
+    this.exitTime = -1;
     // Object.assign(this, opts);
     this.swipe = new Swiper();
     this.swipe.clear();
@@ -149,6 +150,7 @@ export default class Player extends Sprite {
         return false;
       }
       this.exited = true;
+      this.exitTime = time;
       this.sfx.open.play(this.pos);
       window.setTimeout(() => {
         this.nextLevel();
