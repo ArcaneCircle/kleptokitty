@@ -7,7 +7,7 @@ import LevelComplete from './entities/levelComplete';
 
 document.title = D.title;
 tileFixBleedScale = .5;
-const levels = LEVELS_DATA.split('+');
+const levels = await loadLevels();
 
 injectCSS();
 
@@ -22,11 +22,12 @@ for (const key in D.sfx) sfx[key] = new Sound(D.sfx[key]);
 let startLevel = 0;
 let importLevel = location.href.split('?i=')[1];
 if (importLevel) {
-  console.log('import', importLevel);
-    if (importLevel.length > 3) {
-      levels.unshift(importLevel);
+    console.log('import', importLevel);
+    startLevel = levels.indexOf(importLevel);
+    if (startLevel < 0) {
+      startLevel = levels.length;
+      levels.push(importLevel);
     } else {
-      startLevel = parseInt(importLevel, 10);
       importLevel = false;
   }
 }
@@ -78,9 +79,13 @@ const nextLevel = () => {
   let t = time - startTime;
     startTime = time;
 
-  const lootPer = ~~(loot/levelLoot*100)
-  const info = `${webxdc.selfName} won level #${fnv1a32(levelWon)} ⏳${~~t}s 💎${lootPer}% 🐾${moves}`;
-  webxdc.sendUpdate({ payload: {}, info, href: 'index.html?i=' + levelWon});
+  if (importLevel) {
+    window.location.replace('./mapeditor.html?i=' + levelWon);
+  } else {
+    const lootPer = ~~(loot/levelLoot*100)
+    const info = `${webxdc.selfName} won level ${level} (${fnv1a32(levelWon)}) ⏳${~~t}s 💎${lootPer}% 🐾${moves}`;
+    webxdc.sendUpdate({ payload: {}, info, href: 'index.html?i=' + levelWon});
+  }
 
   new LevelComplete({ pos, updateScore, complete, score, level, startGame, sfx, moves, loot, levelLoot, t, deaths });
 }
@@ -94,15 +99,15 @@ const startGame = () => {
     ready = true;
     player = makeLevel(levels[level], { setGameOver, updateScore, nextLevel, sfx, level });
     startTime = time;
-    if (level === 0 && !importLevel) {
+    if (level === 0) {
       new Msg(isTouchDevice ? 'Swipe to move' : 'ARROWS TO MOVE');
       setTimeout(() => new Msg('Find the Key'), 2500);
       setTimeout(() => new Msg('Grab loot'), 4000);
       setTimeout(() => new Msg('Escape'), 6000);
     } else if (importLevel) {
-      new Msg(`Challenge!`, 3);
+      new Msg(`Test mode!`, 3);
     } else {
-      new Msg(`Level ${level}`, 3);
+      new Msg(`Level ${level+1}`, 3);
     }
     // musicInit(importLevel ? rand(100,200) : level);
     musicInit(level);

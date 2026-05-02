@@ -174,8 +174,15 @@ function exportMap(share) {
   el.select();
   el.setSelectionRange(0, 99999); // For mobile devices
   if (share) {
-    const info = `${webxdc.selfName} shared a level #${fnv1a32(raw)}`;
-    webxdc.sendUpdate({payload: {}, info, href: 'index.html?i=' + raw});
+    const update = {payload: {}, href: 'index.html?i=' + raw}
+    const index = levels.indexOf(raw);
+    if (index < 0) {
+      update.payload.newMap = raw;
+      update.info = `${webxdc.selfName} created level ${levels.length+1} (${fnv1a32(raw)})`;
+    } else {
+      update.info = `${webxdc.selfName} shared level ${index+1} (${fnv1a32(raw)})`;
+    }
+    webxdc.sendUpdate(update);
   }
   navigator.clipboard.writeText(raw);
   window.location.replace('./index.html?i=' + raw);
@@ -396,15 +403,12 @@ addEventListener('keyup', (e) => {
   }
 });
 
-async function loadLevels() {
-      return { levels: LEVELS_DATA.split('+') }
-}
-
 loadLevels()
-  .then((data) => {
-    levels = data.levels;
+  .then((lvls) => {
+    levels = lvls;
     // levels.unshift(data.testlevel);
-    document.querySelector('#arrayData').value = levels[0];
+    const importLevel = location.href.split('?i=')[1];
+    document.querySelector('#arrayData').value = importLevel? importLevel : levels[0];
     importMap();
     let html = '';
     currentlyEditing = 0;
