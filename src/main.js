@@ -76,7 +76,7 @@ const nextLevel = () => {
 
   const { moves, loot, pos, levelLoot } = player;
   engineObjects.forEach(o => o.destroy());
-  let t = Math.min(time - startTime, 30);
+  let t = player.exitTime - startTime;
     startTime = time;
 
   if (importLevel) {

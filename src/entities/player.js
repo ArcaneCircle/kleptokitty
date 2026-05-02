@@ -149,6 +149,7 @@ export default class Player extends Sprite {
         return false;
       }
       this.exited = true;
+      this.exitTime = time;
       this.sfx.open.play(this.pos);
       window.setTimeout(() => {
         this.nextLevel();
